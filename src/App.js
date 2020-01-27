@@ -1,33 +1,46 @@
 import React, { useState } from 'react';
-import './App.css';
-import Navigation from './components/Navigation/Navigation.js';
-import Map from './components/Map/Map.js';
-import Login from './components/Login/Login.js';
-import Profile from './components/Profile/Profile.js';
-import Signup from './components/Signup/Signup.js';
+import { Header } from './components/Header/Header.js';
+import { Map } from './components/Map';
+import { Login } from './components/Login';
+import { Signup } from './components/Signup';
+import { Profile } from './components/Profile';
 
 const ROUTES = {
   login: (setRoute) => <Login setRoute={setRoute}/>,
-  map: () => <Map/>,
-  profile: () => <Profile/>,
-  signup: (setRoute) => <Signup setRoute={setRoute}/>
+  Карта: () => <Map/>,
+  Профиль: () => <Profile/>,
+  Выйти: (setRoute) => <Login setRoute={setRoute}/>,
+  регистрация: (setRoute) => <Signup setRoute={setRoute}/>
 };
+
+const Context = React.createContext();
+export const AppProvider = Context.Provider;
+export const AppConsumer = Context.Consumer;
 
 function App() {
   const [route, setRoute] = useState("login");
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const login = (email, password) => {
+    setIsLoggedIn(true);
+    setRoute("Карта");
+  }
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    setRoute("login");
+  }
+
   return (
-    <div className="App">
-      <header className="App__header">
-        <Navigation 
-          routes={Object.keys(ROUTES)}
-          setRoute={setRoute}
-        />
-      </header>
-      <section className="App__content">
-        {ROUTES[route](setRoute)}
-      </section>
-    </div>
+    <AppProvider value={{login, logout, isLoggedIn}}>
+      <div className="App">
+        {isLoggedIn ? <Header setRoute={setRoute}/>: <></>}
+        <section className="App__content">
+          {ROUTES[route](setRoute)}
+        </section>
+      </div>
+    </AppProvider>
   );
 }
 

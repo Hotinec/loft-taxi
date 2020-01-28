@@ -36,7 +36,7 @@ export const Header = ({setRoute}) => {
           </Typography>
           <Button color="inherit" onClick={() => setRoute("Карта")}>Карта</Button>
           <Button color="inherit" onClick={() => setRoute("Профиль")}>Профиль</Button>
-          <Button color="inherit" onClick={onClick}>Выйти</Button>
+          <Button id={'LogoutButton'} color="inherit" onClick={onClick}>Выйти</Button>
         </Toolbar>
       </AppBar>
       )}}

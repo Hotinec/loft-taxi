@@ -35,7 +35,7 @@ function App() {
   return (
     <AppProvider value={{login, logout, isLoggedIn}}>
       <div className="App">
-        {isLoggedIn ? <Header setRoute={setRoute}/>: <></>}
+        {isLoggedIn ? <Header className='header' setRoute={setRoute}/>: <></>}
         <section className="App__content">
           {ROUTES[route](setRoute)}
         </section>

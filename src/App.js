@@ -1,46 +1,30 @@
-import React, { useState } from 'react';
-import { Header } from './components/Header/Header.js';
+import React, { useContext } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { Header } from './components/Header/Header';
 import { Map } from './components/Map';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { Profile } from './components/Profile';
-
-const ROUTES = {
-  login: (setRoute) => <Login setRoute={setRoute}/>,
-  Карта: () => <Map/>,
-  Профиль: () => <Profile/>,
-  Выйти: (setRoute) => <Login setRoute={setRoute}/>,
-  регистрация: (setRoute) => <Signup setRoute={setRoute}/>
-};
-
-const Context = React.createContext();
-export const AppProvider = Context.Provider;
-export const AppConsumer = Context.Consumer;
+import { AuthProvider, AuthContext } from './context/AuthContext'
 
 function App() {
-  const [route, setRoute] = useState("login");
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const login = (email, password) => {
-    setIsLoggedIn(true);
-    setRoute("Карта");
-  }
-
-  const logout = () => {
-    setIsLoggedIn(false);
-    setRoute("login");
-  }
+  const { isLoggedIn } = useContext(AuthContext);
 
   return (
-    <AppProvider value={{login, logout, isLoggedIn}}>
+    <AuthProvider>
       <div className="App">
-        {isLoggedIn ? <Header className='header' setRoute={setRoute}/>: <></>}
+        {isLoggedIn && <Header className='header'/>}
         <section className="App__content">
-          {ROUTES[route](setRoute)}
+          <Switch>
+            <Route path={'/login'} render={() => <Login/>}/>
+            <Route path={'/map'} render={() => <Map/>}/>
+            <Route path={'/profile'} render={() => <Profile/>}/>
+            <Route path={'/registration'} render={() => <Signup/>}/>
+            <Redirect from={'/'} to={'login'}/>
+          </Switch>
         </section>
       </div>
-    </AppProvider>
+    </AuthProvider>
   );
 }
 

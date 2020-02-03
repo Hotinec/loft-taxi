@@ -1,25 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Header } from './components/Header/Header.js';
+import { Map } from './components/Map';
+import { Login } from './components/Login';
+import { Signup } from './components/Signup';
+import { Profile } from './components/Profile';
+
+const ROUTES = {
+  login: (setRoute) => <Login setRoute={setRoute}/>,
+  Карта: () => <Map/>,
+  Профиль: () => <Profile/>,
+  Выйти: (setRoute) => <Login setRoute={setRoute}/>,
+  регистрация: (setRoute) => <Signup setRoute={setRoute}/>
+};
+
+const Context = React.createContext();
+export const AppProvider = Context.Provider;
+export const AppConsumer = Context.Consumer;
 
 function App() {
+  const [route, setRoute] = useState("login");
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const login = (email, password) => {
+    setIsLoggedIn(true);
+    setRoute("Карта");
+  }
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    setRoute("login");
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppProvider value={{login, logout, isLoggedIn}}>
+      <div className="App">
+        {isLoggedIn ? <Header className='header' setRoute={setRoute}/>: <></>}
+        <section className="App__content">
+          {ROUTES[route](setRoute)}
+        </section>
+      </div>
+    </AppProvider>
   );
 }
 

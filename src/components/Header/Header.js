@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,7 +7,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Logo } from 'loft-taxi-mui-theme';
 import Button from '@material-ui/core/Button';
-import { AuthContext } from '../../context/AuthContext';
+import { fetchAuthRequest } from '../../modules/main';
+import {shallowEqual, useSelector, useDispatch} from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,15 +16,29 @@ const useStyles = makeStyles(theme => ({
   },
   grow: {
     flexGrow: 1
+  },
+  headerLink: {
+    textDecoration: "none"
   }
 }));
 
 export const Header = () => {
   const classes = useStyles();
-  const { logout } = useContext(AuthContext);
+
+  const dispatch = useDispatch();
+
+  const authAction = useSelector(fetchAuthRequest, shallowEqual);
 
   const onClick = () => {
-    logout();
+    localStorage.setItem('authSuccess', false);
+
+    dispatch({
+      ...authAction,
+      payload: {
+        email: null,
+        password: null
+      }
+    });
   }
   
   return (
@@ -33,12 +48,14 @@ export const Header = () => {
             <Logo/>
           </Typography>
           <Button color="inherit">
-            <Link to="/map">Карта</Link>
+            <Link to="/map" className={classes.headerLink}>Карта</Link>
           </Button>
           <Button color="inherit">
-            <Link to="/profile">Профиль</Link>
+            <Link to="/profile" className={classes.headerLink}>Профиль</Link>
           </Button>
-          <Button id={'LogoutButton'} color="inherit" onClick={onClick}>Выйти</Button>
+          <Button id={'LogoutButton'} color="inherit" onClick={onClick}>
+            <Link to="/login" className={classes.headerLink}>Выйти</Link>
+          </Button>
         </Toolbar>
       </AppBar>
   );

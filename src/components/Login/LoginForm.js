@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { AuthContext } from '../../context/AuthContext';
+import { getAuth, fetchAuthRequest } from '../../modules/main';
+import {shallowEqual, useSelector, useDispatch} from 'react-redux';
+import history from '../../history';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -26,18 +27,33 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const LoginForm = ({setRoute}) => {
+export const LoginForm = () => {
   const classes = useStyles();
-  const { login, isLoggedIn } = useContext(AuthContext);
 
-  const preventDefault = event => {
-    event.preventDefault();
-    setRoute("регистрация");
+  const auth = useSelector(getAuth, shallowEqual);
+  const authAction = useSelector(fetchAuthRequest, shallowEqual);
+
+  const dispatch = useDispatch();
+
+  if (auth && auth.success && JSON.parse(auth.success) === true) {
+    localStorage.setItem('authSuccess', auth.success);
+    localStorage.setItem('authToken', auth.token);
+    history.push('/map');
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    login(e.target.email.value, e.target.password.value);
+
+    dispatch({
+      ...authAction,
+      payload: {
+          email: e.target.email.value,
+          password: e.target.password.value
+      }
+    });
+
+    // console.log(auth);
+    // console.log(authAction);
    }
 
   return (
@@ -52,8 +68,8 @@ export const LoginForm = ({setRoute}) => {
                 <Grid item xs={12}>
                   <p>
                     Новый пользователь?{' '}
-                    <Link href="#" onClick={preventDefault}>
-                    Зарегистрируйтесь
+                    <Link to={'/signup'} >
+                      Зарегистрируйтесь
                     </Link>
                   </p>
                 </Grid>
@@ -70,7 +86,6 @@ export const LoginForm = ({setRoute}) => {
                 </Grid>
               </Grid>
             </form>
-            {isLoggedIn && <Redirect to={"/map"}/>}
     </Card>
   )
 }

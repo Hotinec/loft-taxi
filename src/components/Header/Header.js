@@ -7,7 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Logo } from 'loft-taxi-mui-theme';
 import Button from '@material-ui/core/Button';
-import { fetchAuthRequest } from '../../modules/main';
+import { fetchAuthRequest } from '../../modules/auth';
 import {shallowEqual, useSelector, useDispatch} from 'react-redux';
 
 const useStyles = makeStyles(theme => ({

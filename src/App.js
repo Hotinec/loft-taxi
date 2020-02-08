@@ -1,7 +1,8 @@
 import React from 'react';
 import { Header } from './components/Header/Header';
 import { AppRouter } from './components/General/AppRouter';
-import { getAuth, getRegister } from './modules/main';
+import { getAuth } from './modules/auth';
+import { getRegister } from './modules/register';
 import {shallowEqual, useSelector } from 'react-redux';
 
 function App() {

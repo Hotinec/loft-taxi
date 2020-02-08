@@ -19,7 +19,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import DateFnsUtils from '@date-io/date-fns';
 import { MCIcon } from 'loft-taxi-mui-theme';
-import { getCard, getPostCard, fetchGetCardRequest, fetchPostCardRequest, } from '../../modules/main';
+import { getCard, getPostCard, fetchGetCardRequest, fetchPostCardRequest, } from '../../modules/card';
 import {shallowEqual, useSelector, useDispatch} from 'react-redux';
 
 const useStyles = makeStyles(theme => ({

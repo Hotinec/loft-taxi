@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { getAuth, fetchAuthRequest } from '../../modules/main';
+import { getAuth, fetchAuthRequest } from '../../modules/auth';
 import {shallowEqual, useSelector, useDispatch} from 'react-redux';
 import history from '../../history';
 
@@ -47,13 +47,10 @@ export const LoginForm = () => {
     dispatch({
       ...authAction,
       payload: {
-          email: e.target.email.value,
-          password: e.target.password.value
+        email: e.target.email.value,
+        password: e.target.password.value
       }
     });
-
-    // console.log(auth);
-    // console.log(authAction);
    }
 
   return (

@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { getRegister, fetchRegisterRequest } from '../../modules/main';
+import { getRegister, fetchRegisterRequest } from '../../modules/register';
 import {shallowEqual, useSelector, useDispatch} from 'react-redux';
 import history from '../../history';
 

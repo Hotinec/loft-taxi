@@ -1,25 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Header } from './components/Header/Header';
+import { AppRouter } from './components/General/AppRouter';
+import { getAuth } from './modules/auth';
+import { getRegister } from './modules/register';
+import {shallowEqual, useSelector } from 'react-redux';
 
 function App() {
+  const auth = useSelector(getAuth, shallowEqual);
+  const register = useSelector(getRegister, shallowEqual);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+        {/* {auth.success && <Header className='header'/>} */}
+        {(auth && auth.success && JSON.parse(auth.success) === true) || (register && register.success && JSON.parse(register.success) === true) ?
+          <Header id={'header'}/> : null
+        }
+        <section className="App__content">
+          <AppRouter/>
+        </section>
+      </div>
   );
 }
 

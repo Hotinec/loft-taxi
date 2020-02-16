@@ -53,9 +53,10 @@ export const SignupForm = () => {
   }
 
   if (register && register.success && JSON.parse(register.success) === true) {
+    console.log(register.success);
     localStorage.setItem('authSuccess', register.success);
     localStorage.setItem('authToken', register.token);
-    history.push('/map');
+    history.push('/login');
   }
 
   return (

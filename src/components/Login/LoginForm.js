@@ -1,11 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { Card, Grid, Typography, TextField, Button } from '@material-ui/core';
 import { getAuth, fetchAuthRequest } from '../../modules/auth';
 import {shallowEqual, useSelector, useDispatch} from 'react-redux';
 import history from '../../history';
@@ -36,6 +32,7 @@ export const LoginForm = () => {
   const dispatch = useDispatch();
 
   if (auth && auth.success && JSON.parse(auth.success) === true) {
+    console.log(auth.success);
     localStorage.setItem('authSuccess', auth.success);
     localStorage.setItem('authToken', auth.token);
     history.push('/map');

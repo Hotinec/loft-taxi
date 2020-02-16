@@ -5,7 +5,7 @@ import {
 
   fetchGetCardRequest,
   fetchGetCardSuccess,
-  fetchGetCardFailure,
+  fetchGetCardFailure
 } from './actions';
 
 const host = 'https://loft-taxi.glitch.me'

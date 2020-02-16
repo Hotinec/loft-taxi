@@ -1,5 +1,5 @@
-import reducer from '../modules/register';
-import * as actions from '../modules/register/actions';
+import reducer from '../../modules/register';
+import * as actions from '../../modules/register/actions';
 
 describe('register_reducer', () => {
   it('REGISTER_REQUEST', () => {
@@ -24,7 +24,7 @@ describe('register_reducer', () => {
     });
 });
 
-it('AUTH_REQUEST_AFTER_ERROR', () => {
+it('REGISTER_REQUEST_AFTER_ERROR', () => {
 
     const registerReducerInitialState = { 
         registerError: 'Error',
@@ -47,7 +47,7 @@ it('AUTH_REQUEST_AFTER_ERROR', () => {
     });
 });
 
-it('AUTH_SUCCESS', () => {
+it('REGISTER_SUCCESS', () => {
 
     const registerReducerInitialState = {
       registerError: null,

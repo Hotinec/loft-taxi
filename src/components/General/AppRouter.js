@@ -10,7 +10,7 @@ export const AppRouter = () => {
   const loginPath = '/login';
 
   const auth = useSelector(getAuth, shallowEqual);
-
+  
   const PrivateRoute = ({ component: RouteComponent }) => (
     <Route
       render={routeProps =>
@@ -21,11 +21,14 @@ export const AppRouter = () => {
 
   return (
     <Switch>
+      <Route exact path="/">
+        <Redirect to="/login" />
+      </Route>
       <Route path={'/login'} component={() => <Auth isAuth={true} />}/>
       <Route path={'/signup'} component={() => <Auth isAuth={false} />}/>
       <PrivateRoute path={'/map'} component={Map}/>
       <PrivateRoute path={'/profile'} component={Profile}/>
-      <Redirect from={'/'} to={'login'}/>
+      <Redirect to="login" />
     </Switch>
   );
 }

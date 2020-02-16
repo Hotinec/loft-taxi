@@ -11,8 +11,7 @@ function App() {
 
   return (
       <div className="App">
-        {/* {auth.success && <Header className='header'/>} */}
-        {(auth && auth.success && JSON.parse(auth.success) === true) || (register && register.success && JSON.parse(register.success) === true) ?
+        {(auth && auth.success && JSON.parse(auth.success) === true) ?
           <Header id={'header'}/> : null
         }
         <section className="App__content">

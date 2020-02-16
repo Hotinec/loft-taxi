@@ -1,5 +1,5 @@
-import reducer from '../modules/auth';
-import * as actions from '../modules/auth/actions';
+import reducer from '../../modules/auth';
+import * as actions from '../../modules/auth/actions';
 
 describe('auth_reducer', () => {
   it('AUTH_REQUEST', () => {

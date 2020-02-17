@@ -12,12 +12,9 @@ const createAppStore = () => {
     {
       auth: {
         authResult: {
-        success: localStorage.getItem('authSuccess')
+          success: localStorage.getItem('authSuccess')
         }
-      },
-      // registerResult: {
-      //   success: localStorage.getItem('registerSuccess')
-      // },
+      }
     },
     compose(
       applyMiddleware(sagaMiddleware),

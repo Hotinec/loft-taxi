@@ -13,7 +13,7 @@ describe('App', () => {
 
   it('renders Header', () => {
     const wrapper = shallow(<App/>);
-    expect(wrapper.find('.header').length === 1).toEqual(false);
+    expect(wrapper.find('.header').length === 0).toEqual(false);
   });
 
   it('renders correctly', () => {
@@ -25,3 +25,13 @@ describe('App', () => {
 jest.mock('mapbox-gl', () => ({
   Map: () => ({})
 }));
+
+jest.mock('react-redux', () => ({
+  useDispatch: () => {},
+  useSelector: () => ({
+    auth: {
+      success: true,
+      token: 'TOKEN'
+    }
+  })
+}))

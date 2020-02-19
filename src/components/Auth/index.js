@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { LoginForm } from '../Login/LoginForm';
-import { SignupForm } from '../Signup/SignupForm';
+import LoginForm  from '../Login/LoginForm';
+import SignupForm from '../Signup/SignupForm';
 import { Logo } from 'loft-taxi-mui-theme';
 
 const BackgroundURL = '../background.jpg';

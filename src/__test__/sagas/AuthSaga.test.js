@@ -1,21 +1,27 @@
 
 import {put, call} from 'redux-saga/effects';
-import {authSaga} from '../../modules/auth/authorizationSaga.js';
+import {authSagaWorker} from '../../modules/auth/authorizationSaga.js';
 import {postAuth} from '../../modules/auth/authorizationSaga.js';
 import {fetchAuthSuccess} from '../../modules/auth/actions.js';
 
-describe('test_authSaga', () => {
+describe('test authSaga', () => {
+  const gen = authSagaWorker();
 
-  // const gen = sagas.authSaga();
+  it('calls authAction', () => {
+    expect(gen.next().value).toEqual(call(postAuth, undefined));
+  });
 
-  it('calls action', () => {
-      expect(authSaga().next().value)
-      .toEqual(call(postAuth, undefined))
-  })
+it('dispatches success authAction', () => {
+  const responseData = {
+    success: true,
+    token: 'test'
+  }
+    
+    expect(gen.next(responseData).value)
+    .toEqual(put(fetchAuthSuccess(responseData)));
+  });
 
-  it('dispatches success action', () => {
-      expect(authSaga().next({success: true, token: 'some_token'}).value)
-      .toEqual(put(fetchAuthSuccess({success: true, token: 'some_token'})))
-  })
-
-})
+it('authAction done', () => {
+    expect(gen.next().done).toEqual(true);
+  });
+});

@@ -1,5 +1,6 @@
 
 import { combineReducers } from 'redux';
+import { reducer as form } from 'redux-form'
 import { fork } from 'redux-saga/effects';
 import address from './address';
 import auth from './auth';
@@ -18,7 +19,8 @@ export default combineReducers({
   auth,
   card,
   register,
-  route
+  route,
+  form
 });
 
 export function* rootSaga() {
